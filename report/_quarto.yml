@@ -1,0 +1,36 @@
+project:
+  type: book
+  output-dir: _report
+
+book:
+  title: "report"
+  author: "Don Boyd"
+  date: today
+  date-format: long
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - summary.qmd
+    - references.qmd
+    - appendix.qmd
+
+bibliography: references.bib
+
+execute: 
+  cache: true
+  echo: false
+  warning: false
+  include: false
+
+format:
+  html:
+    css: style.css  # for div datatables wrapper
+    theme: cosmo
+    self-contained: false
+  # pdf:
+  #   documentclass: scrreprt
+
+
+
+
+

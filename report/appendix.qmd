@@ -1,0 +1,39 @@
+# Appendix {.unnumbered}
+
+## Deadlines
+
+-   June 16 2022: project start
+-   June 30 - July 14: initial scan completed, request data (start + 2-4 weeks)
+-   \~Aug 30: finish requesting + gathering data (start + scan + \<= 2 months)
+-   Sept 16: draft report (start + 3 months)
+-   Oct 17 (Monday): final report (start + 4 months)
+
+## Goals
+
+This proposed project will develop a full answer to the first question below, within the limits of available data, and preliminary answers to the second and third questions along with information describing whether and how they could be pursued further:
+
+1.  What does spending by the city-county of San Francisco look like, in depth, for programs directly related to homelessness and single-room occupancy (SRO) housing, for key departments directly involved in homelessness programs and SRO housing? For each of the key departments, broken down by homelessness programs and SRO housing, and in aggregate for these departments, obtain and analyze the best reasonably available information on:
+
+2.  The percentage of the department's budget that goes towards homelessness.
+
+3.  The headcount and cost of running the departments.
+
+4.  The percentage of the budget that actually trickles down to the homeless population. This will require definition during the course of the project.
+
+5.  The number of shelters in the city; the number of shelter beds; the cost of running the shelters. This may require some estimation on my part.
+
+6.  How much does the city spend on homelessness and SRO housing, looking across all departments, not just those most directly involved, and going beyond direct spending to include activities closely related to homelessness?
+
+7.  What can we know from available data about permanent supportive housing residents, their tenure in this housing, and the extent to which they may exit, and how, from these programs?
+
+## Project deliverables
+
+I propose to prepare the following deliverables:
+
+A project report with an executive summary, a body that has detailed analysis for each question (with more detail for the first, as noted above) including appropriate tables and graphs, and appendices for any information that is too detailed for the main report. For example, my detailed review of research and past analyses in San Francisco will be important to have, but may belong in a report appendix rather than the report body. This will be a much more analytic and policy-related report than my report on payments to nonprofit organizations.
+
+I'd expect the report to be about 20 pages, not counting appendices. It would be in a white paper format, by which I mean the analysis will be strong, the writing will be crisp and clear, and the tables and graphs will provide useful information and insights, but it will not have the polish and editorial review you'd want for a public report. That is a lot more work.
+
+I will provide an html file that allows easy access to any useful comparative data I am able to obtain (e.g., comparisons over time, across departments, or across cities) as well as an Excel file with the relevant data.
+
+## Timetable
