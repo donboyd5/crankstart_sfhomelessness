@@ -3,14 +3,15 @@ project:
   output-dir: _report
 
 book:
-  title: "report"
+  title: "Spending on Homelessness by the City-County of San Francisco"
   author: "Don Boyd"
   date: today
   date-format: long
   chapters:
     - index.qmd
     - intro.qmd
-    - summary.qmd
+    - sanfranservices.qmd
+    - studies.qmd
     - references.qmd
     - appendix.qmd
 

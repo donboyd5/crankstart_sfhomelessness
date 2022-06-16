@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+documents/
 management/
 report/_report/
 report/.quarto/

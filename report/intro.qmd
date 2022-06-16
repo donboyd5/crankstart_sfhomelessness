@@ -4,12 +4,11 @@
 
 ### Definitions of homelessness
 
-There is no single universally recognized definition of homelessness. Different federal agencies have different definitions, and state governments and local governments may for some purposes use definitions that differ from federal definitions. (This is true for San Francisco.) 
+There is no single universally recognized definition of homelessness. Different federal agencies have different definitions, and state governments and local governments may for some purposes use definitions that differ from federal definitions. (This is true for San Francisco.)
 
 That said, the U.S. Department of Housing and Urban Development (HUD) has widely used definitions of homelessness for purposes of its Continuum of Care program. The U.S. Department of Health and Human Services (DHSS) also has definitions.
 
 HUD defines four broad categories of homelessness, briefly summarized below:
-
 
 San Francisco...
 
@@ -18,23 +17,19 @@ San Francisco...
     -   San Francisco
 
     -   Elsewhere
-    
-    
+
 ### Measuring homelessness
+
     -   HUD
 
     -   San Francisco
 
     -   Elsewhere
-    
+
 ## What governmental services are related to homelessness?
 
 -   Services
 
 -   Measuring the costs of these services
 
-
-
 ## Misc
-
-See @knuth84 for additional discussion of literate programming.

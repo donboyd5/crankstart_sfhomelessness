@@ -1,0 +1,17 @@
+---
+bibliography: references.bib
+---
+
+# Selected studies and reports
+
+## Urban Institute Chronic Homelessness Initiative: 2021 Progress Report
+
+@batkoChronicHomelessnessInitiative2022
+
+### Quotes
+
+> In May 2017, Tipping Point Community, a Bay Area nonprofit organization, announced a \$100 million initiative in partnership with government and community agencies to halve chronic homelessness in San Francisco in five years (called the Chronic Homelessness Initiative, or CHI). To reach this goal, CHI has relied on three strategies: (1) increasing placements of people experiencing homelessness into permanent housing, (2) preventing people from becoming chronically homeless, and (3) changing systems to further the first two goals and increase capacity, accountability, and transparency. This report provides an update on progress made in 2021 toward CHI's goals, as well as describes the challenges the initiative experienced.
+
+> Tipping Point relies on a CHI dashboard tracking tool, developed in partnership with Urban, that models chronic homelessness inflow and housing placements in response to targeted efforts in the years leading to the 2023 PIT count. The dashboard reflects actual housing placements and projected housing placement goals and is updated quarterly. Tipping Point prioritized the development of the CHI dashboard to create a publicly visible tracking system of data not otherwise made available by the city, furthering the goal of system transparency and accountability.
+
+### Notes
