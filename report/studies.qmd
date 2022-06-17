@@ -15,3 +15,6 @@ bibliography: references.bib
 > Tipping Point relies on a CHI dashboard tracking tool, developed in partnership with Urban, that models chronic homelessness inflow and housing placements in response to targeted efforts in the years leading to the 2023 PIT count. The dashboard reflects actual housing placements and projected housing placement goals and is updated quarterly. Tipping Point prioritized the development of the CHI dashboard to create a publicly visible tracking system of data not otherwise made available by the city, furthering the goal of system transparency and accountability.
 
 ### Notes
+
+## More studies
+

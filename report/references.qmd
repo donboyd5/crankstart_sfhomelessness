@@ -1,4 +1,8 @@
 # References {.unnumbered}
 
+
 ::: {#refs}
+
+{{< include bibs.qmd >}}
+
 :::
