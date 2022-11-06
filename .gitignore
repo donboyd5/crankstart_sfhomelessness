@@ -2,7 +2,15 @@
 .Rhistory
 .RData
 .Ruserdata
+data/
 documents/
 management/
 report/_report/
 report/.quarto/
+*.css
+*.html
+*.js
+*.pdf
+*.png
+*.woff
+*.xl*

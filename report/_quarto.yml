@@ -1,6 +1,8 @@
 project:
   type: book
   output-dir: _report
+  
+# quarto publish netlify --no-render --no-browser --no-prompt  
 
 book:
   title: "Spending on Homelessness by the City-County of San Francisco"
@@ -15,7 +17,9 @@ book:
     - references.qmd
     - appendix.qmd
 
-bibliography: references.bib
+bibliography: _bibliography.bib
+nocite: |
+  @*
 
 execute: 
   cache: true

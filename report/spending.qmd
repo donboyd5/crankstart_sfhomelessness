@@ -1,0 +1,130 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r}
+#| label: libraries_constants
+#| include: false
+
+source(here::here("r", "libraries.r"))
+source(here::here("r", "libraries_ts.r"))
+
+
+ob <- here::here("data", "open_book")
+
+#.. graph theme items ----
+legend_none <- theme(legend.position = "None")
+legend_notitle <- theme(legend.title = element_blank())
+caption_left <- theme(plot.caption = element_text(hjust = 0))
+
+note_spendrev <- "Office of the Controller, Spending and Revenue,\nhttps://data.sfgov.org/City-Management-and-Ethics/Spending-and-Revenue/bpnb-jwfb"
+
+```
+
+```{r}
+#| label: get_data
+#| include: false
+
+departments <- readRDS(path(ob, "departments.rds"))
+xrev <- readRDS(path(ob, "spending_and_revenue.rds"))
+scard <- readRDS(path(ob, "scorecards.rds"))
+contracts <- readRDS(path(ob, "contracts.rds"))  
+nobid <- readRDS(path(hshd, "nobid2021.rds"))
+
+```
+
+
+## Total spending by HSH
+```{r}
+#| label: hsh
+#| echo: false
+#| warning: false
+
+hom <- xrev |> 
+  filter(deptcode=="HOM")
+
+# hom |> 
+#   filter(fyear==2022, revspend=="Spending") |> 
+#   summarise(amount=sum(amount))
+
+capt <- paste0("Source: ", note_spendrev)
+
+hom |> 
+  filter(revspend=="Spending", fyear <= 2022) |> 
+  group_by(fyear) |> 
+  summarise(amount=sum(amount)) |> 
+  ggplot(aes(fyear, amount)) +
+  geom_bar(stat="identity", fill="blue") +
+  scale_y_continuous(name="Spending ($ millions)",
+                     breaks=seq(0, 1e9, 100e6),
+                     labels=number_format(scale=1e-6)) +
+  scale_x_continuous(name="City fiscal year ending",
+                     breaks=2015:2024) +
+  ggtitle("HSH spending") +
+  labs(caption=capt) +
+  theme_bw() +
+  caption_left
+
+```
+
+## HSH spending breakdown
+```{r}
+#| label: hsh
+#| echo: false
+#| warning: false
+
+hom |>
+  filter(fyear==2022, revspend=="Spending") |>
+  group_by(charcode, character) |> 
+  summarise(amount=sum(amount))
+
+
+tabdata <- hom |> 
+  filter(revspend=="Spending", fyear<2023) |>
+  # collapse some spending character codes
+  mutate(fchar=fct_collapse(charcode,
+                            Grants = "CITY_GR_PROG",
+                            Capital = "CAP_OUTLAY",
+                            Compensation = c("SALARIES", "MAND_FRING_BEN"),
+                            "Aid Assistance"=c("AID_ASSIST"),
+                            "Services of Other Departments"="SVCS_OTHER_DEPTS",
+                            other_level = "Other"),
+         fchar=fct_relevel(fchar, "Grants", "Capital", "Compensation",
+                           "Aid Assistance", "Services of Other Departments", "Other"),
+         fyear=factor(fyear)) |> 
+  group_by(fchar, fyear) |> 
+  summarise(amount=sum(amount), .groups="drop") |> 
+  arrange(fyear, fchar) |> 
+  pivot_wider(names_from = fyear, values_from = amount) |> 
+  arrange(fchar) |> 
+  janitor::adorn_totals()
+
+levels(tabdata$fchar)
+
+tab <- tabdata |> 
+  gt() |> 
+  tab_header(
+    title = "HSH spending by major category",
+    subtitle = "Millions of dollars"
+  ) |> 
+  # tab_spanner(columns = c(owner, renter, total),
+  #             label="Number of households") |> 
+  cols_label(fchar="Category") |> 
+  fmt_currency(columns=-fchar,
+               rows=c(1, nrow(tabdata)),
+               decimals=1,
+               scale=1e-6) |> 
+  fmt_number(columns=-fchar,
+             rows= 2:(nrow(tabdata) - 1),
+             decimals=1,
+             scale=1e-6) |> 
+  sub_missing()
+
+tab
+
+```
+
+

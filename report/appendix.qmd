@@ -1,6 +1,17 @@
 # Appendix {.unnumbered}
 
-## Deadlines
+## Schedule
+
+Revised:
+
+-   June 16 2022: project start
+-   June 30 - August 30: initial scan completed, request data
+-   \~Aug 30: finish requesting + gathering data
+-   Sept 22: web meeting progress report (approximate date)
+-   Oct 27: draft report
+-   Nov 30: final report
+
+Original:
 
 -   June 16 2022: project start
 -   June 30 - July 14: initial scan completed, request data (start + 2-4 weeks)

@@ -1,0 +1,15 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## People and housing
+
+[HSH 2022 PIT presentation](https://hsh.sfgov.org/wp-content/uploads/2022/08/PIT-Key-Findings-Briefing-Deck-web.pdf)
+
+-   4,397 people were unsheltered on the night of the PIT, representing a 15% decrease since 2019;
+
+-   
+
+![](images/image-1281092953.png)
