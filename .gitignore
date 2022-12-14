@@ -10,6 +10,7 @@ report/.quarto/
 *.css
 *.html
 *.js
+*.mp4
 *.pdf
 *.png
 *.woff

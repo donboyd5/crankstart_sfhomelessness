@@ -13,6 +13,7 @@ book:
     - index.qmd
     - intro.qmd
     - sanfranservices.qmd
+    - spending.qmd
     - studies.qmd
     - references.qmd
     - appendix.qmd
@@ -21,11 +22,15 @@ bibliography: _bibliography.bib
 nocite: |
   @*
 
-execute: 
-  cache: true
+execute:
+  eval: true
+  include: false  
   echo: false
+  error: false
   warning: false
-  include: false
+  message: false  # not sure if allowed
+  note: false  # not sure if allowed
+  freeze: auto  # during global project renders, re-render only when source changes
 
 format:
   html:
