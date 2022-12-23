@@ -6,6 +6,99 @@ editor_options:
 
 # Spending on homelessness
 
+```{r}
+#| label: prelim
+#| include: false
+
+
+source(here::here("r", "libraries.r"))
+source(here::here("r", "libraries_ts.r"))
+
+dhhap3 <- here::here("data", "hhap3")
+
+```
+
+
+```{r}
+#| label: get-data
+#| include: false
+
+hhap <- readRDS(path(dhhap3, "funding_clean.rds"))
+
+```
+
+
+
+## Average annual spending plans, including federal and state money
+
+The table below shows estimates of average annual planned spending on homelessness, by major agency. (@cityofsanfranciscoHomelessHousingAssistance2022)
+
+```{r}
+#| label: prep-spendtable
+#| include: false
+
+tabdata <- hhap |> 
+  summarise(across(c(local, state, federal, private, total),
+                   ~ sum(.x)), .by=agency) |> 
+  arrange(desc(total)) |> 
+  janitor::adorn_totals() |> 
+  mutate(agencyf=factor(agency, 
+                        levels=c("HOM", "MOHCD", "HSA", "DPH", "Total"),
+                        labels=c("Department of Homelessness and Supportive Housing",
+                                 "Mayor's Office of Housing and Community Development",
+                                 "Human Services Agency",
+                                 "Department of Public Health",
+                                 "Total")),
+                        localpct=local / total)
+
+tt <- "Average annual planned spending on homelessness by San Francisco"
+spant <- "Average annual amount, $ millions, by source of funds"
+
+avgnote <- "Most amounts averaged over 2020-21 through 2023-24, but some include longer periods and some include shorter periods"
+
+tab <- tabdata |> 
+  select(agencyf, local, state, federal, private, total) |> 
+  gt() |> 
+  tab_header(
+    title = tt,
+    subtitle = "Caution: Includes spending from federal and state funds, and one-time spending"
+    ) |> 
+  tab_spanner(columns = c(local, state, federal, private, total),
+              id="amounts",
+              label=spant) |> 
+  cols_label(agencyf="Agency",
+             local="Local",
+             state="State",
+             federal="Federal",
+             private="Private",
+             total="Total") |> 
+  cols_align(align = "left",
+  columns = agencyf) |> 
+  fmt_number(columns=c(local, state, federal, private, total),
+             scale_by = 1e-6,
+             decimals=1) |> 
+  fmt_currency(columns=c(local, state, federal, private, total),
+               rows=c(1, nrow(tabdata)),
+               scale_by = 1e-6,
+               decimals=1) |>  
+  # spanners= is an id given to the spanner 
+  tab_footnote(avgnote, locations=cells_column_spanners(spanners = "amounts")) |> 
+  tab_source_note(source_note = "Source: Author's analysis of San Francisco request for HHAP Round 3 funding")
+tab  
+
+
+```
+
+
+```{r}
+#| label: show-spendtable
+#| include: true
+tab 
+
+```
+
+
+
 ## Overview
 
 ![](images/image-398531333.png)
@@ -53,6 +146,12 @@ Note: much of this is based on 2022-23 and 2023-24 proposed budget @groffenberge
     -   10% wage increase over 2 years
 
 -   
+
+## Spending over time
+
+![](images/image-1415200608.png)
+
+Source: @gigiwhitleySanFranciscoHomelessness2022
 
 ## Cross-Agency Funding and Coordinating Activities
 
@@ -141,7 +240,7 @@ hom |>
 ### HSH spending breakdown
 
 ```{r}
-#| label: hsh
+#| label: hsh2
 #| echo: false
 #| warning: false
 

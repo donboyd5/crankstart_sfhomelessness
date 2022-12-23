@@ -12,11 +12,20 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    - sanfranservices.qmd
-    - spending.qmd
-    - studies.qmd
-    - references.qmd
-    - appendix.qmd
+    - part: "Spending"
+      chapters:
+      - spending/sanfranservices.qmd
+      - spending/spending.qmd
+    - part: "People and housing"
+      chapters:
+      - people/people_and_housing.qmd
+    - part: "Appendix"
+      chapters:
+      - appendix/appendix.qmd
+    - part: "Notes"
+      chapters:
+      - notes/studies.qmd
+    - references.qmd  
 
 bibliography: _bibliography.bib
 nocite: |

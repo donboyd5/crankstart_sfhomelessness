@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: 4db920e0-8964-48b9-98f1-a0c15d4fa4ff
+      url: 'https://visionary-cendol-89d6da.netlify.app'

@@ -1,7 +1,3 @@
----
-bibliography: references.bib
----
-
 # Selected studies and reports
 
 ## Urban Institute Chronic Homelessness Initiative: 2021 Progress Report
