@@ -18,7 +18,6 @@ dhhap3 <- here::here("data", "hhap3")
 
 ```
 
-
 ```{r}
 #| label: get-data
 #| include: false
@@ -27,15 +26,50 @@ hhap <- readRDS(path(dhhap3, "funding_clean.rds"))
 
 ```
 
-
-
-## Average annual spending plans, including federal and state money
-
-The table below shows estimates of average annual planned spending on homelessness, by major agency. (@cityofsanfranciscoHomelessHousingAssistance2022)
+## Planned spending from local, federal, and state funds
 
 ```{r}
-#| label: prep-spendtable
+#| label: prep-hhap
 #| include: false
+
+# fyl <- c("FY 2021-2022", "FY 2022-2023", "FY 2023-2024")
+# fyl <- c("FY 2021-2022")
+
+f <- function(fyl){
+  fyl <- str_remove(fyl, "FY ")
+  fyl <- paste0(str_sub(fyl, 1, 5), str_sub(fyl, 8, 9))
+  paste(fyl, collapse=", ")
+}
+# f(fyl)
+
+hhap_prep <- hhap |> 
+  mutate(agencyf=factor(agency, 
+                        levels=c("HOM", "MOHCD", "HSA", "DPH", "Total"),
+                        labels=c("Department of Homelessness and Supportive Housing",
+                                 "Mayor's Office of Housing and Community Development",
+                                 "Human Services Agency",
+                                 "Department of Public Health",
+                                 "Total")),
+         fundsource=case_when(local==total ~ "Local",
+                              state==total ~ "State",
+                              federal==total ~ "Federal",
+                              private==total ~ "Private",
+                              unknown==total ~ "Unknown",
+                              TRUE ~ "Multiple"),
+         funding=ifelse(str_sub(funding, 1, 5)=="Other", "Other", funding)) |> 
+  rowwise() |> 
+  mutate(period=f(fylist)) |> 
+  ungroup()
+  
+count(hhap_prep, fundsource)  
+count(hhap_prep, period)
+
+hhap_prep |> 
+  summarise(n=n(), total=sum(total), .by=period) |> 
+  arrange(desc(total)) |> 
+  mutate(npct=n / sum(n),
+         dolpct=total / sum(total))
+
 
 tabdata <- hhap |> 
   summarise(across(c(local, state, federal, private, total),
@@ -50,6 +84,52 @@ tabdata <- hhap |>
                                  "Department of Public Health",
                                  "Total")),
                         localpct=local / total)
+```
+
+The best way to get a nearly-full picture of San Francisco spending related to homelessness is from the City's application to the state for a grant under Round 3 of the Homeless Housing, Assistance and Prevention (HHAP) program. That program requires local governments to prepare a local action plan, which includes "A local landscape analysis that assesses the current number of people experiencing homelessness and existing programs and funding which address homelessness within the jurisdiction" (@californiahomelesscoordinatingandfinancecouncilHomelessHousingAssistance2022).
+
+### About the data
+
+The tables below summarize the landscape analysis included in the city's HHAP-3 application (@cityofsanfranciscoHomelessHousingAssistance2022). These data were challenging for the city to develop and are challenging to interpret, so it's important to understand what they represent.
+
+The city's HHAP-3 application includes spending data for four major agencies that are heavily involved in services for the homeless: the Department of Homelessness and Supportive Housing (HSH), the Mayor's Office of Housing and Community Development (MOHCD), the Department of Public Health (DPH), and Human Services Agency (HSA). HSH was the lead agency in preparing the application.
+
+HSH obtained data from each of the four agencies on planned spending for as many of city fiscal years 2021-22 through 2024-25 as were available to HSH. The data can be for different multi-year periods because of different budgeting arrangements at federal, state and local levels, and because of changes in programs in place. The HHAP-3 landscape analysis includes just one number for each major spending category - the sum of planned spending in that category over those years. The application also includes information on which years the number pertains to. Agencies did not provide year-by-year estimates of spending.
+
+For example, HSH reported that it planned to spend \$139.1 million of state funds on the "HomeKey" program over 2021-22 and 2022-23 (an average of \$69.6 million over the two years), and it planned to spend \$19.1 million for federal Emergency Housing Vouchers (EHVs) over the three years from 2021-22 through 2023-24 (an average of \$6.4 million).
+
+It's important for readers to understand several things about the following tables:
+
+-   The tables include federal and state spending that goes through the San Francisco budget, in addition to spending funded by local taxes.
+
+-   This is true in general of amounts shown in the San Francisco budget, although this may not always be evident to readers of the city budget. While it is important to understand total spending, only the local piece is paid for directly by San Francisco taxpayers. (San Francisco taxpayers do contribute to federal and state spending through the federal and state taxes they pay, but these amounts are not paid for out of local taxes.)
+
+-   In each table, the rightmost column of numbers is the sum of spending funded by the three levels of government.
+
+-   The annual averages are a useful way of understanding the totality of spending, but they do not represent San Francisco spending in any particular year. Some programs are phasing down while others are phasing up. About 59 percent of spending was averaged over the three years from 2021-22 through 2023-24, 21 percent was averaged over 2021-22 through 2024-25, and most of the remainder was for 2021-22 or averaged over 2021-22 and 2022-23.
+
+-   Spending on homelessnes is "lumpy" in the sense that it has been driven upward by one-time federal support and one-time state support related to the pandemic. Much of this support is winding down or will wind down, and managing this decline is an important issue for HSH.
+
+-   Spending has been driven upward by the Proposition C Gross Receipts Tax for Homelessness Services, approved by San Francisco voters in November 2018.
+
+-   One spending item in the Mayor's Office of Housing and Community Development did not have associated information on the source of funds (the extent to which the item was financed by federal, state, or local funds). In the tables below, I have distributed this across federal, state, and local sources in the same manner as the overall MOHCD budget is distributed.
+
+-   The tables show planned (i.e., budgeted) spending, not actual spending. I don't believe that's a significant issue - while in planned and actual spending by governments can differ significantly, particularly in a single year, it is unlikely to lead to a misleading view of average spending over multiple years.
+
+### Total spending
+
+The following table shows planned spending for the four major agencies in total.
+
+```{r}
+#| label: prep-spendtable
+#| include: false
+
+tabdata <- hhap_prep |> 
+  summarise(across(c(local, state, federal, private, total),
+                   ~ sum(.x)), .by=agencyf) |> 
+  arrange(desc(total)) |> 
+  janitor::adorn_totals() |> 
+  mutate(localpct=local / total)
 
 tt <- "Average annual planned spending on homelessness by San Francisco"
 spant <- "Average annual amount, $ millions, by source of funds"
@@ -61,7 +141,7 @@ tab <- tabdata |>
   gt() |> 
   tab_header(
     title = tt,
-    subtitle = "Caution: Includes spending from federal and state funds, and one-time spending"
+    subtitle = "Includes spending from federal and state funds, and one-time spending"
     ) |> 
   tab_spanner(columns = c(local, state, federal, private, total),
               id="amounts",
@@ -89,7 +169,6 @@ tab
 
 ```
 
-
 ```{r}
 #| label: show-spendtable
 #| include: true
@@ -97,11 +176,122 @@ tab
 
 ```
 
+### Department of Homelessness and Supportive Housing (HSH)
 
+```{r}
+#| label: ftab-agency
+#| include: false
+
+f_tabdata <- function(agency){
+  tabdata <- hhap_prep |> 
+    filter(agency==!!agency) |> 
+    arrange(desc(total)) |> 
+    relocate(funding) |> # put funding first so that janitor puts total label there
+    janitor::adorn_totals()
+}
+
+
+f_tab <- function(tt, tabdata){
+  spant <- "Average annual amount, $ millions, by source of funds"
+  tab <- tabdata |> 
+    dplyr::select(funding, description, 
+         local, state, federal, private, total, period) |> 
+  gt() |> 
+    tab_header(
+    title = tt,
+    subtitle = "Includes spending from federal and state funds, and one-time spending"
+    ) |> 
+  tab_spanner(columns = c(local, state, federal, private, total),
+              id="amounts",
+              label=spant) |> 
+  # tab_spanner(columns = c(funding, description),
+  #             id="describe",
+  #             label="Funding source and item description (per HHAP application)") |> 
+  cols_label(funding="Funding source",
+             description="Item description per HHAP-3 application (verbatim)",
+             local="Local",
+             state="State",
+             federal="Federal",
+             private="Private",
+             total="Total",
+             period=html("Years included in average")) |> 
+  cols_align(align = "left",
+             columns = c(funding, description)) |> 
+  fmt_number(columns=c(local, state, federal, private, total),
+             scale_by = 1e-6,
+             decimals=1) |> 
+  fmt_currency(columns=c(local, state, federal, private, total),
+               rows=c(1, nrow(tabdata)),
+               scale_by = 1e-6,
+               decimals=1) |>  
+  # spanners= is an id given to the spanner 
+  tab_source_note(source_note = "Source: Author's analysis of San Francisco request for HHAP Round 3 funding")
+  tab
+}
+
+
+```
+
+```{r}
+#| label: spend-HSH
+#| include: true
+
+tabdata <- f_tabdata("HOM")
+tt <- "Department of Homelessness and Supportive Housing"
+tab <- f_tab(tt, tabdata)
+tab
+
+```
+
+### Mayor's Office of Housing and Community Development (MOHCD)
+
+```{r}
+#| label: spend-MOHCD
+#| include: true
+
+tabdata <- f_tabdata("MOHCD")
+tt <- "Mayor's Office of Housing and Community Development"
+tab <- f_tab(tt, tabdata)
+tab
+
+
+```
+
+### Department of Public Health (DPH)
+
+```{r}
+#| label: spend-DPH
+#| include: true
+
+tabdata <- f_tabdata("DPH")
+tt <- "Department of Public Health"
+tab <- f_tab(tt, tabdata)
+tab
+
+```
+
+### Human Services Agency (HSA)
+
+```{r}
+#| label: spend-HSA
+#| include: true
+
+tabdata <- f_tabdata("HSA")
+tt <- "Human Services Agency"
+tab <- f_tab(tt, tabdata)
+tab
+
+```
 
 ## Overview
 
-![](images/image-398531333.png)
+## Spending over time
+
+![](images/image-1415200608.png)
+
+Source: @gigiwhitleySanFranciscoHomelessness2022
+
+## The Mayor's Comments on Homelessness Spending in the 2022-23 Budget
 
 Note: much of this is based on 2022-23 and 2023-24 proposed budget @groffenbergerProposedBudgetFiscal2022.
 
@@ -144,14 +334,6 @@ Note: much of this is based on 2022-23 and 2023-24 proposed budget @groffenberge
     -   \~half+ self-supporting, enterprises; rest is GF from taxes, federal, state
 
     -   10% wage increase over 2 years
-
--   
-
-## Spending over time
-
-![](images/image-1415200608.png)
-
-Source: @gigiwhitleySanFranciscoHomelessness2022
 
 ## Cross-Agency Funding and Coordinating Activities
 

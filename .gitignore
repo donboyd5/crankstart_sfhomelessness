@@ -9,7 +9,7 @@ report/_report/
 report/.quarto/
 *.css
 *.html
-*.js
+*.js*
 *.mp4
 *.pdf
 *.png
