@@ -3,11 +3,21 @@
 
 ## San Francisco Spending on Homelessness
 
-San Francisco's four major agencies involved in homelessness-related programs are spending, in aggregate, an average of \$1.5 billion annually as shown in the table below. Approximately \$1.1 billion of this spending is from sources supported directly by local taxpayers, with the remainder paid by the state or federal government, some of which is paid indirectly by San Francisco taxpayers. For reasons explained in the body of the report, the table averages planned spending over multiple years.
+### Overview of spending
+
+San Francisco's four major agencies involved in homelessness-related programs are spending, in aggregate, an average of \$1.5 billion annually as shown in the table below. Approximately \$1.1 billion of this spending is from sources supported directly by local taxpayers, with the remainder paid by the state or federal government, some of which is paid indirectly by San Francisco taxpayers. For reasons explained in the body of the report, the table uses planned spending averaged over multiple years - the amounts do not indicate actual spending in any specific year, but an overall average of anticipated spending.
 
 ![](results/spend_table.png)
 
-In addition to spending included in this table, many other city agencies play a role in addressing homelessness, including Adult Probation, Fire, Parks, and Police. While no public sources are available that quantify spending on homelessness-related programs by these agencies, spending is likely to be far smaller than spending by the four major agencies in the table above. The body of the report describes activities of these agencies in addressing homelessness.
+In addition to spending included in this table, many other city agencies play a role in addressing homelessness, including the Adult Probation Department, the Controller's Office, the Department of Emergency Management, the Fire Department, the Metropolitan Transportation Authority, Parks and Recreation, the Police Department, the Public Library, the Public Works Department, the Sheriff, the Zuckerberg San Francisco General Hospital, and likely others.
+
+In addition, there are several multi-agency collaborative efforts, including FIX-IT TEAM SF, a quality of life effort; Healthy Streets Operation Center (HSOC), which engages in outreach to encampments to ensure that safe sleeping guidelines are being followed; the Local Homelessness Coordinating Board, an advisory board that monitors programs, obtains community input, and helps develop strategic plans; and the Our City, Our Home advisory committee, which  makes recommendations to the Mayor and the Board of Supervisors intended to ensure that the City uses Proposition C tax revenue in a manner consistent with the proposition's intent.
+
+While no readily available public sources quantify in a comprehensive manner San Francisco's spending on homelessness-related programs by these agencies and collaborative efforts, their spending is likely to be far smaller than spending by the four major agencies in the table above. One reason to think this is likely is that the table above is based on funding data the city was required to develop for a state grant application; the city had an incentive to capture all significant spending so that it could demonstrate signficant efforts to address homelessness.
+
+The body of the report describes activities of several of non-major agencies and entities in addressing homelessness.
+
+### Trend in homelessness funding
 
 City funding for homelessness-related spending has increased significantly in recent years. Data for examining trends over time are not available in a form that allows precise comparisons to the table above, but they are broadly consistent with the table. The bar chart below was prepared by the Department of Homelessness and Supportive Housing and discussed in a presentation in July 2022. This shows homelessness-related funding for major agencies by year from 2012-13 through 2023-24. (@gigiwhitleySanFranciscoHomelessness2022)
 
