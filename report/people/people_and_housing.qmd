@@ -4,12 +4,138 @@ editor_options:
   chunk_output_type: console
 ---
 
-## People and housing
+# People and housing
+
+```{r}
+#| label: prelim
+#| include: false
+
+# Use HUD system performance data
+
+source(here::here("r", "libraries.r"))
+source(here::here("r", "libraries_ts.r"))
+
+dhless <- here::here("data", "hud", "homeless")
+dperf <- r"(E:\data\homelessness\hud\performance)"
+
+```
+
+```{r}
+#| label: get-data-filter-measures-and-CA
+#| include: false
+
+# get the data and create a CA subset with measures of interest
+
+sysperf <- readRDS(path(dhless, "sysperf.rds"))
+
+# HMS DQ - Exits 2019, 2020, 2021
+# SPM 1 - Exits - ES-SH-TH Avg (Days) and Median are only vars all years
+# SPM 2
+#   All -- has percent returns in 6, 12, 24 months for all years
+#   SPM 2 (Emergency Shelter) and other subcategores generally all vars - 2018-2021
+# SPM 3 -- e.g., Percent Stayers increased earned income
+# SPM 4 -- e.g., Percent Leavers increased earned income
+# SPM 5 -- e.g., Percent with Successful SO Outcome
+# SPM 7
+
+# define a few variables to compare to other places
+# rankmult: 1=high is bad, -1=high is good
+vmap <- read_csv(
+"category, vname2, var, rankmult
+SPM 2 (All), Percent Returns in 24 mths (should include both the 6- and 12-month cohort), pct24, 1
+SPM 7,	Percent with Successful Exit, pctexit, -1
+SPM 2 (Street Outreach),	Percent Returns in 24 mths (should include both the 6- and 12-month cohort), sopct24, 1
+SPM 1,	ES-SH-TH Avg (Days), esshth_avgdays, 1
+SPM 1,	ES-SH-TH Median (Days), esshth_mdndays, 1
+SPM 3,	Total HMIS Count, hmis_count, 1
+")
+vmap
+
+# note that we need to drop early years for COCs that have changed names over the period 
+# start by only including records that have non missing values for 2021
+basedata <- vmap |> 
+  left_join(sysperf, by = join_by(category, vname2), multiple="all") |> 
+  filter(stabbr %in% c("CA")) |> 
+  select(year, cocnum, cocname, category, vname2, var, value, rankmult)
+glimpse(basedata)
+count(basedata, cocname)
+count(basedata, var, vname2)
+
+topcocs <- basedata |> 
+  filter(year=="2021", var=="hmis_count") |> 
+  arrange(desc(value)) |> 
+  mutate(rank=row_number())
+
+```
+
+```{r}
+#| label: get-data-cacompare
+#| include: false
+
+cacompare <- basedata |> 
+  select(year, cocnum, cocname, category, var, value, vname2, rankmult) |> 
+  pivot_wider(names_from = year) |> 
+  # drop any cocs that do not have 2021 as they will have changed name and
+  # presumably geography in some year before 2021
+  filter(!is.na(`2021`)) |> 
+  group_by(var) |> 
+  arrange(var, desc(rankmult * `2021`)) |> 
+  mutate(rank=row_number()) |> 
+  relocate(vname2, .after = `2021`) |> 
+  ungroup()
+
+```
+
+```{r}
+#| label: tab-function
+#| include: false
+
+# table function to show key measures
+
+```
+
+## System performance measures
+
+### Number of homeless people
+
+### Length of time homeless people are unsheltered
+
+SPM 1,	ES-SH-TH Avg (Days), esshth_avgdays, 1
+
+SPM 1,	ES-SH-TH Median (Days), esshth_mdndays, 1
+
+### People who exit permanent housing and return to homelessness
+
+SPM 2 (All), Percent Returns in 24 mths (should include both the 6- and 12-month cohort), pct24, 1
+
+SPM 7,	Percent with Successful Exit, pctexit, -1
+
+SPM 2 (Street Outreach),	Percent Returns in 24 mths (should include both the 6- and 12-month cohort), sopct24, 1
+
+## Characteristics of the homeless population
+
+### Race and ethnicity
 
 [HSH 2022 PIT presentation](https://hsh.sfgov.org/wp-content/uploads/2022/08/PIT-Key-Findings-Briefing-Deck-web.pdf)
 
--   4,397 people were unsheltered on the night of the PIT, representing a 15% decrease since 2019;
-
--   
+4,397 people were unsheltered on the night of the PIT, representing a 15% decrease since 2019;
 
 ![](images/image-1281092953.png)
+
+Controller Shimmin Sept 2022
+
+![](images/image-1705230305.png)
+
+### Duration
+
+Controller City Performance Unit 11.03.2021([this](https://sfcontroller.org/sites/default/files/Our%20City%2C%20Our%20Home/211103%20%20OCOH%20Needs%20Assessment%20Population%20Analysis.pdf))
+
+![](images/image-1318925986.png)
+
+### Disability
+
+More than half of people experiencing literal homelessness have at least one disabling health condition. • 69% (PIT 2019), 56% (ONE FY 2021), 71% (DPH Consolidated FY2021) Just over 1 in 3 people experiencing literal homelessness have a disability and have been homeless for a year or longer (Chronically Homeless). • 38% (PIT 2019), 36% (ONE FY 2021) -- Shimmin Sept 2021
+
+Shimmin Sept 2022
+
+![](images/image-593472863.png)

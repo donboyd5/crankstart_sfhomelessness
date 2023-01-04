@@ -1,0 +1,34 @@
+# Summary {.unnumbered}
+
+
+## San Francisco Spending on Homelessness
+
+San Francisco's four major agencies involved in homelessness-related programs are spending, in aggregate, an average of \$1.5 billion annually as shown in the table below. Approximately \$1.1 billion of this spending is from sources supported directly by local taxpayers, with the remainder paid by the state or federal government, some of which is paid indirectly by San Francisco taxpayers. For reasons explained in the body of the report, the table averages planned spending over multiple years.
+
+![](results/spend_table.png)
+
+In addition to spending included in this table, many other city agencies play a role in addressing homelessness, including Adult Probation, Fire, Parks, and Police. While no public sources are available that quantify spending on homelessness-related programs by these agencies, spending is likely to be far smaller than spending by the four major agencies in the table above. The body of the report describes activities of these agencies in addressing homelessness.
+
+City funding for homelessness-related spending has increased significantly in recent years. Data for examining trends over time are not available in a form that allows precise comparisons to the table above, but they are broadly consistent with the table. The bar chart below was prepared by the Department of Homelessness and Supportive Housing and discussed in a presentation in July 2022. This shows homelessness-related funding for major agencies by year from 2012-13 through 2023-24. (@gigiwhitleySanFranciscoHomelessness2022)
+
+Homelesssness-related funding increased 166 percent between 2019-20 and 2020-21, reflecting an infusion of federal and state funds in response to the COVID-19 pandemic and increased local support from new taxes authorized by Proposition C. As the bar chart shows, some of this funding will wane as COVID-related and other temporary sources - primarily state and federal - phase down. Spending funded from Proposition C taxes will continue, although likely at lower levels than originally expected due to a weakening of San Francisco's economy in the post-COVID period.
+
+![](images/image-170457610.png)
+
+It's important to understand that the table and graph above reflect funding authorization, or planned spending, which is not identical to actual spending. Funding must be authorized before payments can be made. Lags for homelessness-related spending may be long due to litigation associated with Proposition C taxes, lags related to acquiring real estate, and administrative challenges in rapidly ramping up programs in response to a surge of funding.
+
+As a result, spending outlays may not fall as quickly as funding authorization falls in the bar chart above.
+
+## What has happened to homelessness in the wake of these funding increases?
+
+
+## Challenges ahead
+
+Managing ebb and flow of resources, and one-time spending,
+
+Managing declining resources due to changes in the economy and gross receipts tax.
+
+Auditing nonprofit spending.
+
+
+

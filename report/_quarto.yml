@@ -11,6 +11,7 @@ book:
   date-format: long
   chapters:
     - index.qmd
+    - summary.qmd
     - intro.qmd
     - part: "Spending"
       chapters:

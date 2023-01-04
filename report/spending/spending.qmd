@@ -15,6 +15,7 @@ source(here::here("r", "libraries.r"))
 source(here::here("r", "libraries_ts.r"))
 
 dhhap3 <- here::here("data", "hhap3")
+results <- here::here("report", "results")
 
 ```
 
@@ -173,6 +174,7 @@ tab
 #| label: show-spendtable
 #| include: true
 tab 
+gtsave(tab, path(results, "spend_table.png"))
 
 ```
 
@@ -232,6 +234,8 @@ f_tab <- function(tt, tabdata){
 
 ```
 
+The table below shows the major spending items in the Department of Homelessness and Supportive Housing. The major elements are described briefly after the table.
+
 ```{r}
 #| label: spend-HSH
 #| include: true
@@ -242,6 +246,26 @@ tab <- f_tab(tt, tabdata)
 tab
 
 ```
+
+#### Our City, Our Home, and Proposition C
+
+Proposition C was passed by San Francisco voters in November 2018. Proposition C imposed an additional tax on gross receipts for certain large businesses in San Francisco, with the tax rate depending on the size of the business. Revenue from the tax is used to fund programs for homeless services and affordable housing in the city.
+
+The Our City, Our Home Fund program was created as a result of Proposition C. The fund provides funding for homelessness services and affordable housing programs in San Francisco, with the goal of reducing homelessness and increasing access to affordable housing in the city. The fund is administered by MOHCD and the money is used to support a range of programs and initiatives, including rental assistance, permanent supportive housing, and temporary shelters.
+
+The plan for Our City, Our Home was for funding to be allocated to the Department of Homelessness and Supportive Housing, the Mayor's Office on Housing and Community Development, and the Department of Public Health. In the first few years, most funding was intended to be allocated to construction costs after which funding would go toward operating costs and services. According to the intial plan, "funding contracted out to non-profits will be carefully overseen by contracting managers in said department. Contract managers will carefully scrutinize budgets, check receipts, payroll records, perform audits and ensure funding is spent appropriately." (For details on Proposition C and Our City, Our Home as proposed, see [this](https://www.ourcityourhomesf.org/san_francisco_prop_c_2018_explained).)
+
+In addition to HSH, the Mayor's Office of Housing and Community Development (MOHCD) and the Office of Economic and Workforce Development (OEWD) deliver OCOH-funded permanent housing services).
+
+A separate section discuss OCOH in more detail, based largely on the [OCOH 2021-22 annual report](https://sf.gov/data/ocoh-fund-annual-report-fy21-22-executive-summary).
+
+Looking ahead to OCOH spending, the OCOH oversight committee said this on December 15, 2022 (@LookingAhead2023):
+
+> The Fund \[is\] in a period of weakness rather than strength, with the result that the budgeting process is likely to feel more constrained. Final fund balance amounts will come from the mid-March forecast reported in the 5-Year Plan Update. Long story short: final budget amounts won't be available until mid-March. Departments will be submitting their budget proposals to the Mayor's budget office on Friday 3/31/2023.
+
+#### Local General Fund
+
+All programs of HSH not funded by Our City, Our Home or by the state or federal governments is funded from the general fund, financed by local taxes and other revenue sources.
 
 ### Mayor's Office of Housing and Community Development (MOHCD)
 
@@ -282,6 +306,25 @@ tab <- f_tab(tt, tabdata)
 tab
 
 ```
+
+## Our City, Our Home
+
+### 
+Temporary and one-time funding
+
+See [this](https://sf.gov/data/ocoh-fund-annual-report-fy21-22-executive-summary#overview-of-ocoh-budget-and-expenditures).
+
+Particularly during FY20-21 and continuing into FY21-22, the City received significant federal and state support for various programs, including [CARES Act](https://home.treasury.gov/policy-issues/coronavirus/about-the-cares-act) funding, FEMA funding, and [Project Roomkey](https://www.cdss.ca.gov/inforesources/cdss-programs/housing-programs/project-roomkey) funding. The City appropriated the OCOH Fund for essential shelter and homelessness prevention programming, and expenditures against these appropriations will increase once COVID-19 relief funding from federal and state sources expire.
+
+Shimmin Sept 2022
+
+![](images/image-1014483700.png)
+
+See @LookingAhead2023
+
+![](images/image-1104702053.png)
+
+![](images/image-2019434854.png)
 
 ## Overview
 
