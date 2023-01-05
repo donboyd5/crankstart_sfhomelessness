@@ -1,10 +1,10 @@
 ---
 output: html_document
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
-# People and housing
+# What has Happened to Homelessness in the Wake of Funding Increases?
 
 ```{r}
 #| label: prelim
@@ -17,6 +17,7 @@ source(here::here("r", "libraries_ts.r"))
 
 dhless <- here::here("data", "hud", "homeless")
 dperf <- r"(E:\data\homelessness\hud\performance)"
+results <- here::here("report", "results")
 
 ```
 
@@ -94,48 +95,186 @@ cacompare <- basedata |>
 
 ```
 
-## System performance measures
+## Number of homeless people
 
-### Number of homeless people
+### Data: The Point In Time Count
 
-### Length of time homeless people are unsheltered
+Every two years, communities that receive funding from the U.S. Department of Housing and Urban Development (HUD) are requried to conduct a count of sheltered and unsheltered homeless people on a single night, known as the Point-In-Time count. The count includes unsheltered people sleeping outdoors, in cars, or in other places that are not meant for overnight use, and people who are in shelters.
 
-SPM 1,	ES-SH-TH Avg (Days), esshth_avgdays, 1
+The Point-In-Time count does not include people at risk of homelessness such as people living in doubled-up or crowded conditions or people who may be living in fear of domestic violence. And it only counts people on a single night, so does not capture people who may cycle in and out of homelessness in short periods but are not included in the single-night count. Thus, many more people may be homeless at some point during a year than are homeless on a single night. By some measures the number of people served by homelessness programs in San Francisco over the course of a year is more than double the Point-In-Time count. But the Point-In-Time count is conducted regularly using definitions and methods intended to be reasonably uniform across communities and over time, so they are useful for comparative purposes.
 
-SPM 1,	ES-SH-TH Median (Days), esshth_mdndays, 1
+The PIT count ordinarily had been conducted in odd-numbered years, but the 2021 count was disrupted in 2021 by Covid-19 and was only a partial count. As a result, San Francisco conducted a new count in February 2022 that was complete.
 
-### People who exit permanent housing and return to homelessness
+### Trends in homelessness
 
-SPM 2 (All), Percent Returns in 24 mths (should include both the 6- and 12-month cohort), pct24, 1
+```{r}
+#| label: pit-count
+#| include: false
 
-SPM 7,	Percent with Successful Exit, pctexit, -1
+pit <- read_delim(
+"year	sheltered	unsheltered	total
+2005	2749	2655	5404
+2007	2912	2791	5703
+2009	2881	2942	5823
+2011	2298	3371	5669
+2013	2693	4315	7008
+2015	2417	4358	6775
+2017	2505	4353	6858
+2019	2855	5180	8035
+2022	3357	4397	7754")
 
-SPM 2 (Street Outreach),	Percent Returns in 24 mths (should include both the 6- and 12-month cohort), sopct24, 1
+src <- "Source: San Francisco City Performance Scorecard (https://sfgov.org/scorecards/safety-net/homeless-population)"
 
-## Characteristics of the homeless population
+p <- pit |> 
+  pivot_longer(-year) |> 
+  mutate(name=str_to_sentence(name),
+         name=factor(name, levels=c("Total",
+                                    "Unsheltered",
+                                    "Sheltered"))) |> 
+  arrange(name) |> 
+  ggplot(aes(year, value, colour=name)) +
+  geom_line(linewidth=1.25) +
+  geom_point(size=1.75) +
+  scale_x_continuous(name=NULL,
+                     breaks=2005:2022) +
+  scale_y_continuous(name="# of homeless people", 
+                     breaks=seq(0, 10e3, 1e3),
+                     labels = label_number(),
+                     limits=c(0, NA)) +
+  scale_colour_manual(values=c("blue", "red", "darkgreen")) +
+  labs(caption=src) +
+  ggtitle("San Francisco Point In Time Counts") +
+  theme_bw() +
+  theme(axis.text.x = 
+          element_text(angle = -90, vjust = 0, hjust=0.5)) +
+  legend_notitle +
+  caption_left
+  
+ggsave(filename=path(results, "pit_trend.png"),
+       plot=p,
+       width = 10, height=8)
 
-### Race and ethnicity
+```
 
-[HSH 2022 PIT presentation](https://hsh.sfgov.org/wp-content/uploads/2022/08/PIT-Key-Findings-Briefing-Deck-web.pdf)
+The figure below shows San Francisco
 
-4,397 people were unsheltered on the night of the PIT, representing a 15% decrease since 2019;
+```{r}
+#| label: pit-count-show
+#| include: true
+ 
+p
+```
 
-![](images/image-1281092953.png)
+### Comparisons to other cities
 
-Controller Shimmin Sept 2022
+The Point in Time count allows comparisons to other cities. The following figure, prepared by the city Controller's office as part of [City Performance Scorecards benchmarking site](https://sfgov.org/scorecards/benchmarking/homelessness), compares sheltered and unsheltered counts per 100,000 residents in San Francisco to those in selected other cities.[^1] The differences across cities are striking. San Francisco is 5th-highest ranked among the cities shown, and highest among the California cities - although not much different from Los Angeles or Berkeley.
 
-![](images/image-1705230305.png)
+[^1]: Technically, the comparisons is to HUD-defined areas, known as Continuums of Care, that include these cities.
 
-### Duration
+However, San Francisco and other California cities have far greater numbers of unsheltered homeless people than do most eastern and northern cities. For example, San Francisco and New York City have similar total numbers of homeless people, relative to their populations, but San Francisco has more than 10 times as many unsheltered homeless people (512 per 100,000 for San Francisco compared to 47 for New York City).[^2]
 
-Controller City Performance Unit 11.03.2021([this](https://sfcontroller.org/sites/default/files/Our%20City%2C%20Our%20Home/211103%20%20OCOH%20Needs%20Assessment%20Population%20Analysis.pdf))
+[^2]: The reasons for these differences are complex, but include differences in weather that make unsheltered homelessness more dangerous or difficult in colder climates, and court decisions and consent decrees that require shelter in New York City
 
-![](images/image-1318925986.png)
+![](images/image-2026694429.png)
 
-### Disability
+## Direct exits from homelessness
 
-More than half of people experiencing literal homelessness have at least one disabling health condition. • 69% (PIT 2019), 56% (ONE FY 2021), 71% (DPH Consolidated FY2021) Just over 1 in 3 people experiencing literal homelessness have a disability and have been homeless for a year or longer (Chronically Homeless). • 38% (PIT 2019), 36% (ONE FY 2021) -- Shimmin Sept 2021
+San Francisco tracks exists from homelessness through three main kinds of programs: Permanent Supportive Housing, Rapid rehousing, and Problem Solving.
 
-Shimmin Sept 2022
+Permanent Supportive Housing places households into long-term affordable housing with a range of supportive services, including case management and housing retention assistance. Rapid Rehousing is a time-limited subsidy for tenants to live in private-market units and access supportive services. Problem Solving includes relocation assistance, financial assistance, and other interventions to divert or rapidly exit people from homelessness. The city's major problem solving program is Homeward Bound, which is designed to help homeless individuals with ties to another community leave the streets and return to the communities from which they came. It provides participants with one-way bus tickets, assistance in finding temporary housing, and other relocation services.
 
-![](images/image-593472863.png)
+In city fiscal year 2021-22 exits through PSH surged, increasing 81 percent versus 2020-21, as a result of the city's previous large investments in Permanent Supportive Housing. (See figure below.)
+
+```{r}
+#| label: direct-exits
+#| include: true
+
+exits <- read_delim(
+"fyear	rrh	psh	hbound
+2018	204	1176	741
+2019	221	1009	562
+2020	347	985	400
+2021	495	928	167
+2022	576	1676	260")
+
+capt <- "Source: San Francisco City Performance Scorecard (https://sfgov.org/scorecards/safety-net/direct-homeless-exits-through-city-programs)"
+
+levlabs <- c(total="Total",
+             psh="Permanent Supportive Housing",
+             rrh="Rapid Rehousing",
+             hbound="Homeward Bound")
+names(levlabs)
+
+# clrs <- c('#a6cee3','#1f78b4','#b2df8a','#33a02c')
+clrs <- c('#1f78b4','#a6cee3','#b2df8a','#33a02c')
+
+p <- exits |> 
+  mutate(total=rrh + psh + hbound) |> 
+  pivot_longer(-fyear) |> 
+  mutate(name=factor(name,
+                     levels=names(levlabs),
+                     labels=str_wrap(levlabs, 10))) |> 
+  arrange(name) |> 
+  ggplot(aes(fyear, value, colour=name))  +
+  geom_line(linewidth=1.5) +
+  geom_point(size=1.75) +
+  scale_x_continuous(name=NULL,
+                     breaks=2018:2022) +
+  scale_y_continuous(name="# of households", 
+                     breaks=seq(0, 10e3, 1e3),
+                     labels = label_number(),
+                     limits=c(0, NA)) +
+  scale_colour_manual(values=clrs) +
+  labs(caption=src) +
+  ggtitle("San Francisco Direct Exits from Homelessness by Program") +
+  theme_bw() +
+  theme(axis.text.x = 
+          element_text(angle = -90, vjust = 0, hjust=0.5)) +
+  legend_notitle +
+  caption_left
+  
+p
+
+ggsave(filename=path(results, "exits_trend.png"),
+       plot=p,
+       width = 10, height=8)
+
+```
+
+<!-- ## Length of time homeless people are unsheltered -->
+
+<!-- SPM 1, ES-SH-TH Avg (Days), esshth_avgdays, 1 -->
+
+<!-- SPM 1, ES-SH-TH Median (Days), esshth_mdndays, 1 -->
+
+<!-- ## People who exit permanent housing and return to homelessness -->
+
+<!-- SPM 2 (All), Percent Returns in 24 mths (should include both the 6- and 12-month cohort), pct24, 1 -->
+
+<!-- SPM 7, Percent with Successful Exit, pctexit, -1 -->
+
+<!-- SPM 2 (Street Outreach),   Percent Returns in 24 mths (should include both the 6- and 12-month cohort), sopct24, 1 -->
+
+<!-- ## Characteristics of the homeless population -->
+
+<!-- ### Race and ethnicity -->
+
+<!-- <!-- ![](images/image-1281092953.png) --> -->
+
+<!-- Controller Shimmin Sept 2022 -->
+
+<!-- ![](images/image-1705230305.png) -->
+
+<!-- ## Duration -->
+
+<!-- Controller City Performance Unit 11.03.2021([this](https://sfcontroller.org/sites/default/files/Our%20City%2C%20Our%20Home/211103%20%20OCOH%20Needs%20Assessment%20Population%20Analysis.pdf)) -->
+
+<!-- ![](images/image-1318925986.png) -->
+
+<!-- ## Disability -->
+
+<!-- More than half of people experiencing literal homelessness have at least one disabling health condition. • 69% (PIT 2019), 56% (ONE FY 2021), 71% (DPH Consolidated FY2021) Just over 1 in 3 people experiencing literal homelessness have a disability and have been homeless for a year or longer (Chronically Homeless). • 38% (PIT 2019), 36% (ONE FY 2021) -- Shimmin Sept 2021 -->
+
+<!-- Shimmin Sept 2022 -->
+
+<!-- ![](images/image-593472863.png) -->

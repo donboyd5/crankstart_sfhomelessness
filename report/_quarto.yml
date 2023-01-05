@@ -20,12 +20,12 @@ book:
     - part: "People and housing"
       chapters:
       - people/people_and_housing.qmd
-    - part: "Appendix"
-      chapters:
-      - appendix/appendix.qmd
-    - part: "Notes"
-      chapters:
-      - notes/studies.qmd
+    # - part: "Appendix"
+    #   chapters:
+    #   - appendix/appendix.qmd
+    # - part: "Notes"
+    #   chapters:
+    #   - notes/studies.qmd
     - references.qmd  
 
 bibliography: _bibliography.bib
@@ -47,8 +47,8 @@ format:
     css: style.css  # for div datatables wrapper
     theme: cosmo
     self-contained: false
-  # pdf:
-  #   documentclass: scrreprt
+  pdf:
+    documentclass: scrreprt
 
 
 

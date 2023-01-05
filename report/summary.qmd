@@ -15,11 +15,11 @@ In addition, there are several multi-agency collaborative efforts, including FIX
 
 While no readily available public sources quantify in a comprehensive manner San Francisco's spending on homelessness-related programs by these agencies and collaborative efforts, their spending is likely to be far smaller than spending by the four major agencies in the table above. One reason to think this is likely is that the table above is based on funding data the city was required to develop for a state grant application; the city had an incentive to capture all significant spending so that it could demonstrate signficant efforts to address homelessness.
 
-The body of the report describes activities of several of non-major agencies and entities in addressing homelessness.
+The body of the report describes activities of several non-major agencies and entities in addressing homelessness.
 
 ### Trend in homelessness funding
 
-City funding for homelessness-related spending has increased significantly in recent years. Data for examining trends over time are not available in a form that allows precise comparisons to the table above, but they are broadly consistent with the table. The bar chart below was prepared by the Department of Homelessness and Supportive Housing and discussed in a presentation in July 2022. This shows homelessness-related funding for major agencies by year from 2012-13 through 2023-24. (@gigiwhitleySanFranciscoHomelessness2022)
+City funding for homelessness-related spending has increased significantly in recent years. Year-by-year data on trends are not available in a form that allows precise comparisons to the table above, but they are broadly consistent with the table. The bar chart below was prepared by the Department of Homelessness and Supportive Housing and discussed in a presentation in July 2022. This shows homelessness-related funding for major agencies by year from 2012-13 through 2023-24. (@gigiwhitleySanFranciscoHomelessness2022)
 
 Homelesssness-related funding increased 166 percent between 2019-20 and 2020-21, reflecting an infusion of federal and state funds in response to the COVID-19 pandemic and increased local support from new taxes authorized by Proposition C. As the bar chart shows, some of this funding will wane as COVID-related and other temporary sources - primarily state and federal - phase down. Spending funded from Proposition C taxes will continue, although likely at lower levels than originally expected due to a weakening of San Francisco's economy in the post-COVID period.
 
@@ -27,9 +27,19 @@ Homelesssness-related funding increased 166 percent between 2019-20 and 2020-21,
 
 It's important to understand that the table and graph above reflect funding authorization, or planned spending, which is not identical to actual spending. Funding must be authorized before payments can be made. Lags for homelessness-related spending may be long due to litigation associated with Proposition C taxes, lags related to acquiring real estate, and administrative challenges in rapidly ramping up programs in response to a surge of funding.
 
-As a result, spending outlays may not fall as quickly as funding authorization falls in the bar chart above.
+As a result, spending outlays may not fall as quickly as spending authorization falls in the bar chart above.
 
-## What has happened to homelessness in the wake of these funding increases?
+## What Has Happened to Homelessness in the Wake of Funding Increases?
+
+The city's dramatic spending increases and the increases in housing they have supported appear to finally be changing the trends in homelessness. The figure below shows "Point In Time" 
+
+Under 
+
+![](results/pit_trend.png)
+
+We see this also in exits from homelessness; 
+
+![](results/exits_trend.png)
 
 
 ## Challenges ahead
