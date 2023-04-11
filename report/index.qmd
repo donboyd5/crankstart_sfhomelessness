@@ -1,3 +1,62 @@
-# Preface {.unnumbered}
+# Summary {.unnumbered}
 
-This report was prepared for Crankstart Management LLC by Don Boyd, principal, Boyd Research LLC.
+## San Francisco Spending on Homelessness
+
+### Overview of spending
+
+San Francisco's four major agencies involved in homelessness-related programs are spending, in aggregate, an average of \$1.5 billion annually as shown in the table below. Approximately \$1.1 billion of this spending is from sources supported directly by local taxpayers, with the remainder paid by the state or federal government, some of which is paid indirectly by San Francisco taxpayers. For reasons explained in the body of the report, the table uses planned spending averaged over multiple years - the amounts do not indicate actual spending in any specific year, but an overall average of anticipated spending.
+
+![](results/spend_table.png)
+
+In addition to spending included in this table, many other city agencies play a role in addressing homelessness, including the Adult Probation Department, the Controller's Office, Disability and Aging Services, the Department of Emergency Management, the Fire Department, the Metropolitan Transportation Authority, Parks and Recreation, the Police Department, the Public Library, the Public Works Department, the Sheriff, the Zuckerberg San Francisco General Hospital, and likely others.
+
+In addition, there are several multi-agency collaborative efforts, including FIX-IT TEAM SF, a quality of life effort; Healthy Streets Operation Center (HSOC), which engages in outreach to encampments to ensure that safe sleeping guidelines are being followed; the Local Homelessness Coordinating Board, an advisory board that monitors programs, obtains community input, and helps develop strategic plans; and the Our City, Our Home advisory committee, which  makes recommendations to the Mayor and the Board of Supervisors intended to ensure that the City uses Proposition C tax revenue in a manner consistent with the proposition's intent.
+
+While no readily available public sources quantify in a comprehensive manner San Francisco's spending on homelessness-related programs by these agencies and collaborative efforts, their spending is likely to be far smaller than spending by the four major agencies in the table above. One reason to think this is likely is that the table above is based on funding data the city was required to develop for a state grant application; the city had an incentive to capture all significant spending so that it could demonstrate signficant efforts to address homelessness.
+
+The body of the report describes activities of several non-major agencies and entities in addressing homelessness.
+
+### Trend in homelessness funding
+
+City funding for homelessness-related spending has increased significantly in recent years. Year-by-year data on trends are not available in a form that allows precise comparisons to the table above, but they are broadly consistent with the table. The bar chart below was prepared by the Department of Homelessness and Supportive Housing and discussed in a presentation in July 2022. This shows homelessness-related funding for major agencies by year from 2012-13 through 2023-24. (@gigiwhitleySanFranciscoHomelessness2022)
+
+Homelesssness-related funding increased 166 percent between 2019-20 and 2020-21, reflecting an infusion of federal and state funds in response to the COVID-19 pandemic and increased local support from new taxes authorized by Proposition C. As the bar chart shows, some of this funding will wane as COVID-related and other temporary sources - primarily state and federal - phase down. Spending funded from Proposition C taxes will continue, although likely at lower levels than originally expected due to a weakening of San Francisco's economy in the post-COVID period.
+
+![](images/image-170457610.png)
+
+It's important to understand that the table and graph above reflect funding authorization, or planned spending, which is not identical to actual spending. Funding must be authorized before payments can be made. Lags for homelessness-related spending may be long due to litigation associated with Proposition C taxes, lags related to acquiring real estate, and administrative challenges in rapidly ramping up programs in response to a surge of funding.
+
+As a result, spending outlays may not fall as quickly as spending authorization falls in the bar chart above.
+
+### No-bid Contracting
+
+[DETAILS TO COME]
+In an effort to put housing and programs in place quickly, under legislation adopted by the board of supervisors, city agencies have engaged in extensive no-bid contracting. This creates risks of inappropriate contracting.
+
+## What Has Happened to Homelessness in the Wake of Funding Increases?
+
+The city's dramatic spending increases and the increases in housing they have supported appear to finally be changing the trends in homelessness. 
+
+The figure below shows San Francisco Point-In-Time counts from 2005 through 2022. The glimmer of hope is in the red line, which shows that the number of unsheltered homeless declined by 15.1 percent between 2019 and 2022. This, in conjunction with data further below showing that direct exits from homelessness into permanent supportive housing increased by 81 percent between 2021 and 2022 suggests that city efforts may finally be reducing the number of unsheltered homeless people, and moving many into permanent supportive housing.
+
+![](results/pit_trend.png)
+
+We see this potential good news also in exits from homelessness, which rose sharply in 2022.
+
+![](results/exits_trend.png)
+
+
+## Challenges ahead
+
+The city faces at least four major challenges in its budgeting for homelessness.
+
+First, a large share of current funding for homelessness is related to one-time or temporary resources from the state and federal governments, particularly in response to COVID-19. Several of these funding sources are winding down. The city will have to manage and alter its programs in response to changes in the level of state and federal funding.
+
+Second, locally supported revenue is likely to be strained, also. Economic weakness in the post-COVID period, including office vacancies and declines in property values are likely to depress city general fund revenue and also Proposition C revenue devoted to Our City, Our Homes spending.
+
+Third, much of the funding in recent years has been for acquisition of housing, particularly permanent supportive housing. It will need to focus increasingly on managing and operating this housing portfolio.
+
+Finally, in an effort to put housing and programs in place quickly, under legislation adopted by the board of supervisors, city agencies have engaged in extensive no-bid contracting. This creates risks of inappropriate contracting. The city will have to beef up its ability to oversee and manage these contracts.
+
+
+

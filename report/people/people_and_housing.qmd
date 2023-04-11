@@ -156,20 +156,59 @@ ggsave(filename=path(results, "pit_trend.png"),
 
 ```
 
-The figure below shows San Francisco
+The figure and table below show San Francisco Point-In-Time counts from 2005 through 2022. The glimmer of hope is in the red line, which shows that the number of unsheltered homeless declined by 15.1 percent between 2019 and 2022. This, in conjunction with data further below showing that direct exits from homelessness into permanent supportive housing increased by 81 percent between 2021 and 2022 suggests that city efforts may finally be reducing the number of unsheltered homeless people, and moving many into permanent supportive housing.
 
 ```{r}
-#| label: pit-count-show
+#| label: pit-count-plot-show
 #| include: true
  
 p
 ```
 
+```{r}
+#| label: pit-count-tab-show
+#| include: true
+
+pit2 <- pit |> 
+  arrange(year) |> 
+  mutate(across(-year, 
+                ~ .x / lag(.x) - 1,
+                .names = "pch_{.col}"
+                ))
+
+tab <- pit2 |> 
+  gt() |> 
+  sub_missing() |> 
+  tab_header(
+    title = "Point-In-Time Counts Since 2005",
+    subtitle = ""
+  ) |> 
+  tab_spanner(columns = c(sheltered, unsheltered, total),
+              label="Number of homeless individuals") |>
+  tab_spanner(columns = starts_with("pch"),
+              label="Percent change from prior count") |> 
+  cols_label(year=html("Year of count"),
+             sheltered="Sheltered", 
+             unsheltered="Unsheltered",
+             total="Total",
+             pch_sheltered="Sheltered", 
+             pch_unsheltered="Unsheltered",
+             pch_total="Total") |> 
+  fmt_number(columns=c(sheltered, unsheltered, total),
+             decimals=0) |> 
+  fmt_percent(columns=starts_with("pch"), decimals=1) |>
+  tab_source_note(source_note=src)
+
+tab
+
+```
+
+
 ### Comparisons to other cities
 
 The Point in Time count allows comparisons to other cities. The following figure, prepared by the city Controller's office as part of [City Performance Scorecards benchmarking site](https://sfgov.org/scorecards/benchmarking/homelessness), compares sheltered and unsheltered counts per 100,000 residents in San Francisco to those in selected other cities.[^1] The differences across cities are striking. San Francisco is 5th-highest ranked among the cities shown, and highest among the California cities - although not much different from Los Angeles or Berkeley.
 
-[^1]: Technically, the comparisons is to HUD-defined areas, known as Continuums of Care, that include these cities.
+[^1]: Technically, the comparisons are to HUD-defined areas, known as Continuums of Care, that include these cities.
 
 However, San Francisco and other California cities have far greater numbers of unsheltered homeless people than do most eastern and northern cities. For example, San Francisco and New York City have similar total numbers of homeless people, relative to their populations, but San Francisco has more than 10 times as many unsheltered homeless people (512 per 100,000 for San Francisco compared to 47 for New York City).[^2]
 
@@ -179,7 +218,7 @@ However, San Francisco and other California cities have far greater numbers of u
 
 ## Direct exits from homelessness
 
-San Francisco tracks exists from homelessness through three main kinds of programs: Permanent Supportive Housing, Rapid rehousing, and Problem Solving.
+San Francisco tracks exits from homelessness through three main kinds of programs: Permanent Supportive Housing, Rapid rehousing, and Problem Solving.
 
 Permanent Supportive Housing places households into long-term affordable housing with a range of supportive services, including case management and housing retention assistance. Rapid Rehousing is a time-limited subsidy for tenants to live in private-market units and access supportive services. Problem Solving includes relocation assistance, financial assistance, and other interventions to divert or rapidly exit people from homelessness. The city's major problem solving program is Homeward Bound, which is designed to help homeless individuals with ties to another community leave the streets and return to the communities from which they came. It provides participants with one-way bus tickets, assistance in finding temporary housing, and other relocation services.
 
@@ -203,7 +242,7 @@ levlabs <- c(total="Total",
              psh="Permanent Supportive Housing",
              rrh="Rapid Rehousing",
              hbound="Homeward Bound")
-names(levlabs)
+# names(levlabs)
 
 # clrs <- c('#a6cee3','#1f78b4','#b2df8a','#33a02c')
 clrs <- c('#1f78b4','#a6cee3','#b2df8a','#33a02c')

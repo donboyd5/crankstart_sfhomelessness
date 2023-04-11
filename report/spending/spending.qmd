@@ -27,6 +27,46 @@ hhap <- readRDS(path(dhhap3, "funding_clean.rds"))
 
 ```
 
+
+```{r}
+#| label: libraries_constants
+#| include: false
+
+source(here::here("r", "libraries.r"))
+source(here::here("r", "libraries_ts.r"))
+
+dds <- here::here("data", "data_sfgov")
+dob <- here::here("data", "data_openbook")
+dhsh <- here::here("data", "hsh")
+
+#.. graph theme items ----
+legend_none <- theme(legend.position = "None")
+legend_notitle <- theme(legend.title = element_blank())
+caption_left <- theme(plot.caption = element_text(hjust = 0))
+
+note_spendrev <- "Office of the Controller, Spending and Revenue,\nhttps://data.sfgov.org/City-Management-and-Ethics/Spending-and-Revenue/bpnb-jwfb"
+
+```
+
+```{r}
+#| label: get_data
+#| include: false
+
+departments <- readRDS(path(dds, "departments.rds"))
+contracts <- readRDS(path(dds, "contracts.rds"))  
+scard <- readRDS(path(dds, "scorecards.rds"))
+spendrev <- readRDS(path(dds, "spending_and_revenue.rds"))
+
+sup <- readRDS(path(dob, "suppay_5yr2023.rds"))
+
+nobid <- readRDS(path(dhsh, "nobid2021.rds"))
+
+
+```
+
+
+
+
 ## Planned spending from local, federal, and state funds
 
 ```{r}
@@ -165,7 +205,9 @@ tab <- tabdata |>
   # spanners= is an id given to the spanner 
   tab_footnote(avgnote, locations=cells_column_spanners(spanners = "amounts")) |> 
   tab_source_note(source_note = "Source: Author's analysis of San Francisco request for HHAP Round 3 funding")
-tab  
+# tab  
+
+gtsave(tab, path(results, "spend_table.png"))
 
 
 ```
@@ -174,9 +216,17 @@ tab
 #| label: show-spendtable
 #| include: true
 tab 
-gtsave(tab, path(results, "spend_table.png"))
+
 
 ```
+
+## Spending over time
+
+![](images/image-1415200608.png)
+
+Source: @gigiwhitleySanFranciscoHomelessness2022
+
+## Spending by major department
 
 ### Department of Homelessness and Supportive Housing (HSH)
 
@@ -247,227 +297,13 @@ tab
 
 ```
 
-#### Our City, Our Home, and Proposition C
-
-Proposition C was passed by San Francisco voters in November 2018. Proposition C imposed an additional tax on gross receipts for certain large businesses in San Francisco, with the tax rate depending on the size of the business. Revenue from the tax is used to fund programs for homeless services and affordable housing in the city.
-
-The Our City, Our Home Fund program was created as a result of Proposition C. The fund provides funding for homelessness services and affordable housing programs in San Francisco, with the goal of reducing homelessness and increasing access to affordable housing in the city. The fund is administered by MOHCD and the money is used to support a range of programs and initiatives, including rental assistance, permanent supportive housing, and temporary shelters.
-
-The plan for Our City, Our Home was for funding to be allocated to the Department of Homelessness and Supportive Housing, the Mayor's Office on Housing and Community Development, and the Department of Public Health. In the first few years, most funding was intended to be allocated to construction costs after which funding would go toward operating costs and services. According to the intial plan, "funding contracted out to non-profits will be carefully overseen by contracting managers in said department. Contract managers will carefully scrutinize budgets, check receipts, payroll records, perform audits and ensure funding is spent appropriately." (For details on Proposition C and Our City, Our Home as proposed, see [this](https://www.ourcityourhomesf.org/san_francisco_prop_c_2018_explained).)
-
-In addition to HSH, the Mayor's Office of Housing and Community Development (MOHCD) and the Office of Economic and Workforce Development (OEWD) deliver OCOH-funded permanent housing services).
-
-A separate section discuss OCOH in more detail, based largely on the [OCOH 2021-22 annual report](https://sf.gov/data/ocoh-fund-annual-report-fy21-22-executive-summary).
-
-Looking ahead to OCOH spending, the OCOH oversight committee said this on December 15, 2022 (@LookingAhead2023):
-
-> The Fund \[is\] in a period of weakness rather than strength, with the result that the budgeting process is likely to feel more constrained. Final fund balance amounts will come from the mid-March forecast reported in the 5-Year Plan Update. Long story short: final budget amounts won't be available until mid-March. Departments will be submitting their budget proposals to the Mayor's budget office on Friday 3/31/2023.
-
-#### Local General Fund
-
-All programs of HSH not funded by Our City, Our Home or by the state or federal governments is funded from the general fund, financed by local taxes and other revenue sources.
-
-### Mayor's Office of Housing and Community Development (MOHCD)
-
-```{r}
-#| label: spend-MOHCD
-#| include: true
-
-tabdata <- f_tabdata("MOHCD")
-tt <- "Mayor's Office of Housing and Community Development"
-tab <- f_tab(tt, tabdata)
-tab
-
-
-```
-
-### Department of Public Health (DPH)
-
-```{r}
-#| label: spend-DPH
-#| include: true
-
-tabdata <- f_tabdata("DPH")
-tt <- "Department of Public Health"
-tab <- f_tab(tt, tabdata)
-tab
-
-```
-
-### Human Services Agency (HSA)
-
-```{r}
-#| label: spend-HSA
-#| include: true
-
-tabdata <- f_tabdata("HSA")
-tt <- "Human Services Agency"
-tab <- f_tab(tt, tabdata)
-tab
-
-```
-
-## Our City, Our Home
-
-### 
-Temporary and one-time funding
-
-See [this](https://sf.gov/data/ocoh-fund-annual-report-fy21-22-executive-summary#overview-of-ocoh-budget-and-expenditures).
-
-Particularly during FY20-21 and continuing into FY21-22, the City received significant federal and state support for various programs, including [CARES Act](https://home.treasury.gov/policy-issues/coronavirus/about-the-cares-act) funding, FEMA funding, and [Project Roomkey](https://www.cdss.ca.gov/inforesources/cdss-programs/housing-programs/project-roomkey) funding. The City appropriated the OCOH Fund for essential shelter and homelessness prevention programming, and expenditures against these appropriations will increase once COVID-19 relief funding from federal and state sources expire.
-
-[this](https://sfcontroller.org/sites/default/files/Our%20City%2C%20Our%20Home/210817%20OCOH%20Budget%20and%20Implementation%20presentation.pdf):
-
-![](images/image-443924943.png)
-
-![](images/image-470808572.png)
-
-Shimmin Sept 2022
-
-![](images/image-1014483700.png)
-
-See @LookingAhead2023
-
-![](images/image-1104702053.png)
-
-![](images/image-2019434854.png)
-
-## Overview
-
-1.	Department of Homelessness and Supportive Housing (HSH)
-
-2.	San Francisco Department of Public Health
-
-3.	SFFD (San Francisco Fire Department?)
-
-4.	San Francisco Public Works
-
-5.	San Francisco Police Department
-
-6.	City and County of San Francisco (?) (Mayor??)
-
-7.	San Francisco Department of Emergency Management (HSOC Manager)
-
-8.	San Francisco Controller's Office
-
-9.	San Francisco Sheriff
-
-10.	Adult Probation Department
-
-11.	San Francisco 311
-
-12.	San Francisco Recreation and Parks
-
-13.	SFMTA (San Francisco Metropolitan Transportation Authority??)
-
-14.	FIX-IT TEAM SF -- Keeping our neighborhoods safe and clean
-
-## Spending over time
-
-![](images/image-1415200608.png)
-
-Source: @gigiwhitleySanFranciscoHomelessness2022
-
-## The Mayor's Comments on Homelessness Spending in the 2022-23 Budget
-
-Note: much of this is based on 2022-23 and 2023-24 proposed budget @groffenbergerProposedBudgetFiscal2022.
-
--   Only county in the Bay Area to see a decrease in unsheltered homelessness since 2019 (to 2022).
-
--   Budget homelessness proposals
-
-    -   funding to keep three shelter-in-place hotels open
-
-    -   new site in Mission community for up to 70 new cabins
-
-    -   new funding to end homelessness for transgender residents
-
-    -   Mental Health SF
-
-    -   treatment beds
-
-    -   Street Response Teams
-
-    -   funding to support/allow higher wages for frontline staff in City PSH buildings
-
-    -   \$25.4 million over the two years to continue support for the Mid-Market Safety Ambassadors, who are focused on cleanliness and providing a more welcoming environment for residents, workers, and visitors in the areas around the Tenderloin, Civic Center, and Market Street
-
-    -   \$7.2 million over the two years to support an enhanced Tenderloin cleaning initiative, which will expand Public Works' current cleaning operations in the area. This proposal will fund one dedicated work crew to provide daily daytime cleaning services during the week and maintain a healthy, safe, and clean environment to improve quality of life and work conditions for residents and businesses in the Tenderloin area.
-
-    -   \$5.0 million over the two years to support enforcement of the street vending ordinance
-
-    -   maintains investments in the Street Crisis Response Teams (SCRT), Street Wellness Response Teams (SWRT), and Street Opioid Response Team (SORT). Maintaining these efforts are critical in preventing overdoses and connecting people experiencing acute crises to treatment.
-
-    -   augment the City's existing Street Response teams with communitybased organizations (CBOs). This proposed budget appropriates those funds and will leverage that source to support CBOs in strengthening their outreach teams to be better integrated with the City's non-emergency and non-medical calls for service. The CBO teams will collaborate with the City's Street Response teams in responding to 3-1-1 calls and service requests. The teams will provide a client-centered approach
-
-    -   a new investment in the Recreation and Parks Department's Park Rangers. Park Rangers are a positive, helpful, and unarmed presence in the City's public spaces who promote public safety while protecting parks. This budget expands the Park Ranger Unit by ten additional rangers to a total of 61 positions, expanding their presence at the City's network of 225 parks. Many of these locations are high-traffic and high-visibility areas, including Dolores and Golden Gate Parks.
-
-    -   City is on track to exceed its goal of adding 1,500 units of permanent supportive housing through purchasing 1,513 units and leasing 1,032 units this year.
-
-    Budget
-
-    -   \$13.95b 2023, \$13.85b 2024
-
-    -   \~half+ self-supporting, enterprises; rest is GF from taxes, federal, state
-
-    -   10% wage increase over 2 years
-
-## Cross-Agency Funding and Coordinating Activities
-
-### Local Homeless Coordinating Board (LHCB)
-
-### Our City Our Homes (OCOH)
-
-## Summary
-
-![](images/image-449606189.png)
-
-## Department of Homelessness and Supportive Housing
-
-### Major programs
-
-```{r}
-#| label: libraries_constants
-#| include: false
-
-source(here::here("r", "libraries.r"))
-source(here::here("r", "libraries_ts.r"))
-
-dds <- here::here("data", "data_sfgov")
-dob <- here::here("data", "data_openbook")
-dhsh <- here::here("data", "hsh")
-
-#.. graph theme items ----
-legend_none <- theme(legend.position = "None")
-legend_notitle <- theme(legend.title = element_blank())
-caption_left <- theme(plot.caption = element_text(hjust = 0))
-
-note_spendrev <- "Office of the Controller, Spending and Revenue,\nhttps://data.sfgov.org/City-Management-and-Ethics/Spending-and-Revenue/bpnb-jwfb"
-
-```
-
-```{r}
-#| label: get_data
-#| include: false
-
-departments <- readRDS(path(dds, "departments.rds"))
-contracts <- readRDS(path(dds, "contracts.rds"))  
-scard <- readRDS(path(dds, "scorecards.rds"))
-spendrev <- readRDS(path(dds, "spending_and_revenue.rds"))
-
-sup <- readRDS(path(dob, "suppay_5yr2023.rds"))
-
-nobid <- readRDS(path(dhsh, "nobid2021.rds"))
-
-
-```
-
 ### Total spending by HSH
 
 ```{r}
 #| label: hsh
 #| echo: false
 #| warning: false
+#| include: true
 
 hom <- spendrev |> 
   filter(deptcode=="HOM")
@@ -478,7 +314,7 @@ hom <- spendrev |>
 
 capt <- paste0("Source: ", note_spendrev)
 
-hom |> 
+p <- hom |> 
   filter(revspend=="Spending", fyear <= 2022) |> 
   group_by(fyear) |> 
   summarise(amount=sum(amount)) |> 
@@ -493,6 +329,7 @@ hom |>
   labs(caption=capt) +
   theme_bw() +
   caption_left
+p
 
 ```
 
@@ -502,6 +339,7 @@ hom |>
 #| label: hsh2
 #| echo: false
 #| warning: false
+#| include: true
 
 hom |>
   filter(fyear==2022, revspend=="Spending") |>
@@ -554,9 +392,11 @@ tab
 
 ```
 
-## HSH spending using vouchers data
+<!-- ### HSH spending using vouchers data -->
 
 ```{r}
+#| label: hsh3
+#| include: false
 
 sup |> 
   filter(deptcode=="HOM", fyear<2023) |> 
@@ -575,48 +415,188 @@ sup |>
 
 ```
 
-## Department of Public Health
 
-## Human Services Agency
+### Our City, Our Home, and Proposition C
 
-Based on HHAP3 as a starting point:
+Proposition C was passed by San Francisco voters in November 2018. Proposition C imposed an additional tax on gross receipts for certain large businesses in San Francisco, with the tax rate depending on the size of the business. Revenue from the tax is used to fund programs for homeless services and affordable housing in the city.
 
--   State programs
+The Our City, Our Home Fund program was created as a result of Proposition C. The fund provides funding for homelessness services and affordable housing programs in San Francisco, with the goal of reducing homelessness and increasing access to affordable housing in the city. The fund is administered by MOHCD and the money is used to support a range of programs and initiatives, including rental assistance, permanent supportive housing, and temporary shelters.
 
-    -   CalWORKS Housing Support CDSS. HSP assists homeless and housing- vulnerable CalWORKs families. Services include rental assistance, temporary hotel rooms, support for moving-related costs, and wraparound case management. Target pop is CalWORKs families who are homeless or at risk of becoming homeless. (HHAP3) HSP is described [here](https://www.cdss.ca.gov/Portals/9/Housing/Housing%20Support%20Program%20(HSP)%20Fact%20Sheet_January%202021.pdf). However, HHAP3 seemed to be describing Homeless Assistance. The CalWORKs Homeless Assistance (HA) Program was established to help families in the CalWORKs program meet the costs of securing or maintaining permanent housing or to provide emergency shelter when a family is experiencing homelessness. CalWORKs HA program serves eligible CalWORKs recipients or apparently eligible CalWORKs applicants, who are homeless or at risk of homelessness. CalWORKs HA can provide payments for temporary shelter for up to 16 days, as well as payments to secure or maintain housing, including a security deposit and last month's rent, or up to two months of rent arrearages. ([web](https://www.cdss.ca.gov/inforesources/cdss-programs/housing-programs/calworks-homeless-assistance))
+The plan for Our City, Our Home was for funding to be allocated to the Department of Homelessness and Supportive Housing, the Mayor's Office on Housing and Community Development, and the Department of Public Health. In the first few years, most funding was intended to be allocated to construction costs after which funding would go toward operating costs and services. According to the intial plan, "funding contracted out to non-profits will be carefully overseen by contracting managers in said department. Contract managers will carefully scrutinize budgets, check receipts, payroll records, perform audits and ensure funding is spent appropriately." (For details on Proposition C and Our City, Our Home as proposed, see [this](https://www.ourcityourhomesf.org/san_francisco_prop_c_2018_explained).)
 
-    -   Bringing Families Home (BFH) CDSS. Bringing Families Home is a state-funded, locally administered program that provides support to eligible families experiencing homelessness in the child welfare system by offering financial assistance and housing- related wrap-around supportive services. Services may include rental assistance, housing navigation, case management, legal services, credit repair, or payments to help with security deposits, utilities, moving costs. (HHAP3) The Bringing Families Home (BFH) Program was established by Assembly Bill (AB) 1603 (Chapter 25, Statutes of 2016) and updated by Senate Bill (SB) 80 (Chapter 27, Statutes 2019) to reduce the number of families in the child welfare system experiencing or at risk of homelessness, to increase family reunification, and to prevent foster care placement.
+In addition to HSH, the Mayor's Office of Housing and Community Development (MOHCD) and the Office of Economic and Workforce Development (OEWD) deliver OCOH-funded permanent housing services).
 
-        The 2019-20 California Budget Act included a state appropriation of \$25 million General Fund (one-time) for BFH, available for a three-year period from July 2019 through June 2022. The program requires a dollar-for-dollar grantee match, bringing the total program budget to \$50 million.
+TO COME: A separate section discuss OCOH in more detail, based largely on the [OCOH 2021-22 annual report](https://sf.gov/data/ocoh-fund-annual-report-fy21-22-executive-summary).
 
-        BFH offers financial assistance and housing-related wrap-around supportive services, including, but not limited to: rental assistance, housing navigation, case management, security deposits, utility payments, moving costs, hotel and motel vouchers, legal services, and credit repair. ([web](https://www.cdss.ca.gov/inforesources/cdss-programs/housing-programs/bringing-families-home-program))
+Looking ahead to OCOH spending, the OCOH oversight committee said this on December 15, 2022 (@LookingAhead2023):
 
-    -   Housing and Disability Advocacy CDSSm HDAP funding suports activities that assist people experiencing homelessness who are likely eligible for disability benefits. The four core HDAP service components are housing assistance, disability advocacy, outreach, and case management. (HHAP3)
+> The Fund \[is\] in a period of weakness rather than strength, with the result that the budgeting process is likely to feel more constrained. Final fund balance amounts will come from the mid-March forecast reported in the 5-Year Plan Update. Long story short: final budget amounts won't be available until mid-March. Departments will be submitting their budget proposals to the Mayor's budget office on Friday 3/31/2023.
 
-    -   Home Safe CDSS Provides specialized and highly- intensive case management and other stabilizing services to Adult Protective Services (APS) clients experiencing or at-risk of homelessness; can include long-term interventions such as assisted living placements. (HHAP3)
+#### Local General Fund
 
-    -   Project Roomkey and Rehousing CDSS - Project Roomkey leases and provides services at hotels to provide Interim Housing with an exit strategy for homeless people needing these services due to the COVID-19 pandemic. (HHAP3)
+All programs of HSH not funded by Our City, Our Home or by the state or federal governments is funded from the general fund, financed by local taxes and other revenue sources.
 
-    -   Other - HSA claims CalFresh Employment & Training (CFET) funding for CFET-eligible clients who reside in DHSH Masterlease housing. Reimbursement rate is 50% or eligible costs. (HHAP3)
+### Mayor's Office of Housing and Community Development (MOHCD)
 
--   Federal programs
+```{r}
+#| label: spend-MOHCD
+#| include: true
 
-    -   Emergency Solutions Grants - CV (ESG-CV) HUD - ESG leases and provides services at hotels to provide Interim Housing with an exit strategy for homeless people needing these services due to the COVID-19 pandemic. (HHAP3)
+tabdata <- f_tabdata("MOHCD")
+tt <- "Mayor's Office of Housing and Community Development"
+tab <- f_tab(tt, tabdata)
+tab
 
--   Local programs
 
-    -   
+```
 
-![](images/image-1730078610.png)
+### Department of Public Health (DPH)
 
-Budget submission shows a Homeless Benefits Linkages Manager (0923) in the SFHSA Policy, Planning & Public Affairs Division, with a vacant specialist position
+```{r}
+#| label: spend-DPH
+#| include: true
 
-## Mayor's Office of Housing and Community Development
+tabdata <- f_tabdata("DPH")
+tt <- "Department of Public Health"
+tab <- f_tab(tt, tabdata)
+tab
 
-### DAS Disability and Aging Services
+```
 
-## Other Agencies
+### Human Services Agency (HSA)
 
-### ADP Adult Probation Department
+```{r}
+#| label: spend-HSA
+#| include: true
 
-### DEM Department of Emergency Management
+tabdata <- f_tabdata("HSA")
+tt <- "Human Services Agency"
+tab <- f_tab(tt, tabdata)
+tab
+
+```
+
+## Our City, Our Home
+
+### 
+
+### Temporary and one-time funding
+
+See [this](https://sf.gov/data/ocoh-fund-annual-report-fy21-22-executive-summary#overview-of-ocoh-budget-and-expenditures).
+
+Particularly during FY20-21 and continuing into FY21-22, the City received significant federal and state support for various programs, including [CARES Act](https://home.treasury.gov/policy-issues/coronavirus/about-the-cares-act) funding, FEMA funding, and [Project Roomkey](https://www.cdss.ca.gov/inforesources/cdss-programs/housing-programs/project-roomkey) funding. The City appropriated the OCOH Fund for essential shelter and homelessness prevention programming, and expenditures against these appropriations will increase once COVID-19 relief funding from federal and state sources expire. ([source](https://sf.gov/data/ocoh-fund-annual-report-fy21-22-executive-summary#overview-of-ocoh-budget-and-expenditures))
+
+<!-- [this](https://sfcontroller.org/sites/default/files/Our%20City%2C%20Our%20Home/210817%20OCOH%20Budget%20and%20Implementation%20presentation.pdf): -->
+
+<!-- ![](images/image-443924943.png) -->
+
+<!-- ![](images/image-470808572.png) -->
+
+<!-- Shimmin Sept 2022 -->
+
+<!-- ![](images/image-1014483700.png) -->
+
+<!-- See @LookingAhead2023 -->
+
+<!-- ![](images/image-1104702053.png) -->
+
+<!-- ![](images/image-2019434854.png) -->
+
+## A desire for speed has led to extensive no-bid contracts
+
+I have a lot of data on the extent of no-bid contracting, and the law that encouraged it. To come.
+
+But here is a good summary of the issues:
+
+> San Francisco's homelessness agency depends heavily upon a network of over 50 nonprofits to carry out its mission of getting unhoused residents off the streets and into housing and services. That's because it spends only 5.3% of its overall budget on staff salaries and benefits, compared with the citywide level of 45%, according to the Office of the Controller. Since just before the pandemic, the department had been leaning heavily upon a shelter emergency ordinance allowing it to bypass any preapproval process through the city's legislative branch to issue no-bid contracts for shelter and housing. This would cut down on the time it took to bring units and services online to help people.[^1]
+
+[^1]: Kristi Coale. "San Francisco Is Spending Big On Homelessness. Here's How One Journalist Used Data To Investigate Where The Money Is Going. \| Center for Health Journalism." Center for Health Journalism, July 22, 2022. https://centerforhealthjournalism.org/2022/06/16/san-francisco-spending-big-homelessness-here-s-how-one-journalist-used-data-investigate.
+
+<!-- ## The Mayor's Comments on Homelessness Spending in the 2022-23 Budget -->
+
+<!-- Note: much of this is based on 2022-23 and 2023-24 proposed budget @groffenbergerProposedBudgetFiscal2022. -->
+
+<!-- -   Only county in the Bay Area to see a decrease in unsheltered homelessness since 2019 (to 2022). -->
+
+<!-- -   Budget homelessness proposals -->
+
+<!--     -   funding to keep three shelter-in-place hotels open -->
+
+<!--     -   new site in Mission community for up to 70 new cabins -->
+
+<!--     -   new funding to end homelessness for transgender residents -->
+
+<!--     -   Mental Health SF -->
+
+<!--     -   treatment beds -->
+
+<!--     -   Street Response Teams -->
+
+<!--     -   funding to support/allow higher wages for frontline staff in City PSH buildings -->
+
+<!--     -   \$25.4 million over the two years to continue support for the Mid-Market Safety Ambassadors, who are focused on cleanliness and providing a more welcoming environment for residents, workers, and visitors in the areas around the Tenderloin, Civic Center, and Market Street -->
+
+<!--     -   \$7.2 million over the two years to support an enhanced Tenderloin cleaning initiative, which will expand Public Works' current cleaning operations in the area. This proposal will fund one dedicated work crew to provide daily daytime cleaning services during the week and maintain a healthy, safe, and clean environment to improve quality of life and work conditions for residents and businesses in the Tenderloin area. -->
+
+<!--     -   \$5.0 million over the two years to support enforcement of the street vending ordinance -->
+
+<!--     -   maintains investments in the Street Crisis Response Teams (SCRT), Street Wellness Response Teams (SWRT), and Street Opioid Response Team (SORT). Maintaining these efforts are critical in preventing overdoses and connecting people experiencing acute crises to treatment. -->
+
+<!--     -   augment the City's existing Street Response teams with communitybased organizations (CBOs). This proposed budget appropriates those funds and will leverage that source to support CBOs in strengthening their outreach teams to be better integrated with the City's non-emergency and non-medical calls for service. The CBO teams will collaborate with the City's Street Response teams in responding to 3-1-1 calls and service requests. The teams will provide a client-centered approach -->
+
+<!--     -   a new investment in the Recreation and Parks Department's Park Rangers. Park Rangers are a positive, helpful, and unarmed presence in the City's public spaces who promote public safety while protecting parks. This budget expands the Park Ranger Unit by ten additional rangers to a total of 61 positions, expanding their presence at the City's network of 225 parks. Many of these locations are high-traffic and high-visibility areas, including Dolores and Golden Gate Parks. -->
+
+<!--     -   City is on track to exceed its goal of adding 1,500 units of permanent supportive housing through purchasing 1,513 units and leasing 1,032 units this year. -->
+
+<!--     Budget -->
+
+<!--     -   \$13.95b 2023, \$13.85b 2024 -->
+
+<!--     -   \~half+ self-supporting, enterprises; rest is GF from taxes, federal, state -->
+
+<!--     -   10% wage increase over 2 years -->
+
+<!-- ## Cross-Agency Funding and Coordinating Activities -->
+
+<!-- ### Local Homeless Coordinating Board (LHCB) -->
+
+<!-- ### Our City Our Homes (OCOH) -->
+
+<!-- ## Summary -->
+
+<!-- ![](images/image-449606189.png) -->
+
+
+<!-- ## Human Services Agency -->
+
+<!-- Based on HHAP3 as a starting point: -->
+
+<!-- -   State programs -->
+
+<!--     -   CalWORKS Housing Support CDSS. HSP assists homeless and housing- vulnerable CalWORKs families. Services include rental assistance, temporary hotel rooms, support for moving-related costs, and wraparound case management. Target pop is CalWORKs families who are homeless or at risk of becoming homeless. (HHAP3) HSP is described [here](https://www.cdss.ca.gov/Portals/9/Housing/Housing%20Support%20Program%20(HSP)%20Fact%20Sheet_January%202021.pdf). However, HHAP3 seemed to be describing Homeless Assistance. The CalWORKs Homeless Assistance (HA) Program was established to help families in the CalWORKs program meet the costs of securing or maintaining permanent housing or to provide emergency shelter when a family is experiencing homelessness. CalWORKs HA program serves eligible CalWORKs recipients or apparently eligible CalWORKs applicants, who are homeless or at risk of homelessness. CalWORKs HA can provide payments for temporary shelter for up to 16 days, as well as payments to secure or maintain housing, including a security deposit and last month's rent, or up to two months of rent arrearages. ([web](https://www.cdss.ca.gov/inforesources/cdss-programs/housing-programs/calworks-homeless-assistance)) -->
+
+<!--     -   Bringing Families Home (BFH) CDSS. Bringing Families Home is a state-funded, locally administered program that provides support to eligible families experiencing homelessness in the child welfare system by offering financial assistance and housing- related wrap-around supportive services. Services may include rental assistance, housing navigation, case management, legal services, credit repair, or payments to help with security deposits, utilities, moving costs. (HHAP3) The Bringing Families Home (BFH) Program was established by Assembly Bill (AB) 1603 (Chapter 25, Statutes of 2016) and updated by Senate Bill (SB) 80 (Chapter 27, Statutes 2019) to reduce the number of families in the child welfare system experiencing or at risk of homelessness, to increase family reunification, and to prevent foster care placement. -->
+
+<!--         The 2019-20 California Budget Act included a state appropriation of \$25 million General Fund (one-time) for BFH, available for a three-year period from July 2019 through June 2022. The program requires a dollar-for-dollar grantee match, bringing the total program budget to \$50 million. -->
+
+<!--         BFH offers financial assistance and housing-related wrap-around supportive services, including, but not limited to: rental assistance, housing navigation, case management, security deposits, utility payments, moving costs, hotel and motel vouchers, legal services, and credit repair. ([web](https://www.cdss.ca.gov/inforesources/cdss-programs/housing-programs/bringing-families-home-program)) -->
+
+<!--     -   Housing and Disability Advocacy CDSSm HDAP funding suports activities that assist people experiencing homelessness who are likely eligible for disability benefits. The four core HDAP service components are housing assistance, disability advocacy, outreach, and case management. (HHAP3) -->
+
+<!--     -   Home Safe CDSS Provides specialized and highly- intensive case management and other stabilizing services to Adult Protective Services (APS) clients experiencing or at-risk of homelessness; can include long-term interventions such as assisted living placements. (HHAP3) -->
+
+<!--     -   Project Roomkey and Rehousing CDSS - Project Roomkey leases and provides services at hotels to provide Interim Housing with an exit strategy for homeless people needing these services due to the COVID-19 pandemic. (HHAP3) -->
+
+<!--     -   Other - HSA claims CalFresh Employment & Training (CFET) funding for CFET-eligible clients who reside in DHSH Masterlease housing. Reimbursement rate is 50% or eligible costs. (HHAP3) -->
+
+<!-- -   Federal programs -->
+
+<!--     -   Emergency Solutions Grants - CV (ESG-CV) HUD - ESG leases and provides services at hotels to provide Interim Housing with an exit strategy for homeless people needing these services due to the COVID-19 pandemic. (HHAP3) -->
+
+<!-- -   Local programs -->
+
+<!--     -    -->
+
+<!-- ![](images/image-1730078610.png) -->
+
+<!-- Budget submission shows a Homeless Benefits Linkages Manager (0923) in the SFHSA Policy, Planning & Public Affairs Division, with a vacant specialist position -->

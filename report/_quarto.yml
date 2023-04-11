@@ -11,11 +11,11 @@ book:
   date-format: long
   chapters:
     - index.qmd
-    - summary.qmd
-    - intro.qmd
+    # - summary.qmd
+    # - intro.qmd
     - part: "Spending"
       chapters:
-      - spending/sanfranservices.qmd
+      # - spending/sanfranservices.qmd
       - spending/spending.qmd
     - part: "People and housing"
       chapters:
@@ -26,6 +26,7 @@ book:
     # - part: "Notes"
     #   chapters:
     #   - notes/studies.qmd
+    - conclusions.qmd
     - references.qmd  
 
 bibliography: _bibliography.bib
